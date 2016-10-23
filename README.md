@@ -1,18 +1,8 @@
 # PSSudo
 
-PowerShell module that provides `Start-Elevated` function: it will execute the provided command line in elavated mode. There is only one restriction: the command to be executed must be a program.
+Fork from <https://github.com/ecsousa/PSSudo>
 
-This function is aliased as `sudo`
-
-## Installing
-
-Windows 10 users:
-
-    Install-Module PSSudo -Scope CurrentUser
-
-Otherwise, if you have [PsGet](http://psget.net/) installed:
-
-
-    Install-Module PSSudo
-  
-Or you can install it manually coping `PSSudo.psm1` to your modules folder (e.g. ` $Env:USERPROFILE\Eduardo_Sousa\Documents\WindowsPowerShell\Modules\PSSudo\`)
+Modifications:
+1. `-cur_console` for `sudo <arguments>` so that elevated PowerShell in ConEmu runs in the same window/tab/console
+2. When checking for Aliases, use `Ignore` as the `-ErrorAction` so that errors are not detected in `oh-my-posh` templates
+3. Added `f--k`, allowing for `sudo !!` fuctionality - executing the last command in elevated mode. 
