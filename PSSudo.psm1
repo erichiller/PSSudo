@@ -1,3 +1,4 @@
+
 <#
 .SYNOPSIS
 sudo - like logic
@@ -9,7 +10,6 @@ Allows for
 	This is incredibly usefull for instance, when you forgot to run sudo
 	(or did not kn	ow that it required admin rights) on the previous command`
 #>
-
 function Start-Elevated {
 
 	if($args[0] -eq '!!'){
@@ -62,10 +62,10 @@ function Start-Elevated {
 
 				}
 				'ExternalScript' {
-				$program = $env:WINDIR + '\System32\WindowsPowerShell\v1.0\powershell.exe'
+					$program = $env:WINDIR + '\System32\WindowsPowerShell\v1.0\powershell.exe'
 
-				$cmdLine = "& '$($cmd.Source)' $cmdLine"
-				$cmdLine = "-NoLogo -Command `"$cmdLine; pause`""
+					$cmdLine = "& '$($cmd.Source)' $cmdLine"
+					$cmdLine = "-NoLogo -Command `"$cmdLine; pause`""
 				}
 				default {
 					Write-Warning "Command '$($args[0])' not found."
@@ -75,7 +75,8 @@ function Start-Elevated {
 
 			if($emuHk) {
 				$psi.UseShellExecute = $false
-				$cmdLine = "-cur_console:a $cmdLine";
+				#$cmdLine = "-cur_console:an $cmdLine";
+				$cmdLine = "-new_console:an $cmdLine";
 			}
 			else {
 				$psi.Verb = "runas"
@@ -105,6 +106,8 @@ function f--k {
 	Write-Host "Running $cmd in $PWD"
 	sudo powershell -NoExit -Command "pushd '$PWD'; Write-host 'cmd to run: $cmd'; $cmd"
 }
+
+. "$PSScriptRoot\Invoke-ElevatedCommand.ps1"
 
 Set-Alias sudo Start-Elevated
 
